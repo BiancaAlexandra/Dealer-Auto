@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+elementFormDefault="unqualified">
+	<xs:element name="dealer_auto">
+		<xs:complexType>
+			<xs:sequence> 
+				<xs:element name="comanda" minOccurs="0" maxOccurs="unbounded"> 
+					<xs:complexType>
+						<xs:attribute name="numar" type="xs:int"/>
+						<xs:sequence>
+							<xs:element name="masina">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="specificatii_tehnice">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="marca" type="xs:string" />
+													<xs:element name="tip">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="denumire_comerciala" type="xs:string" />
+																<xs:element name="varianta" type="xs:string" />
+																<xs:element name="versiune" type="xs:string" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="date_identificare">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="serie_sasiu" type="xs:string" />
+																<xs:element name="serie_motor" type="xs:string" />
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="an_fabricatie" type="xs:int" />
+													<xs:element name="capacitate_cilindrica" type="xs:int" />
+													<xs:element name="putere" type="xs:int" />
+													<xs:element name="tip_combustibil" type="xs:Combustibil" default="benzina"/>
+													<xs:element name="norma_de_poluare" type="xs:int" />
+													<xs:element name="culoare" type="xs:string" />
+													<xs:element name="viteza_maxima" type="xs:string" />
+													<xs:element name="tractiune" type="xs:Tractiune" default="fata"/>
+													<xs:element name="transmisie" type="xs:Transmisie" default="manuala" />
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="date_cumparator" type="xs:date_client_extinse" />
+							<xs:element name="dealer">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute name="nume" type="xs:string" />
+											<xs:attribute name="prenume" type="xs:string" />
+										</xs:extension>
+									</xs:simpleContent>
+									<xs:sequence>
+										<xs:element name="nr_telefon" type="xs:string" />
+										<xs:element name="adresa_mail" type="xs:string" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="accesibilitate_masina" type="xs:Accesibilitate" />
+							<xs:element name="statusul_masinii" type="xs:Status" />
+							<xs:element name="date_vanzator">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute name="denumire" type="xs:string" />
+										</xs:extension>
+									</xs:simpleContent>
+									<xs:sequence>
+										<xs:element name="localitate" type="xs:string" />
+										<xs:element name="consilier_de_vanzari" type="xs:string" />
+										<xs:element name="judet_sector" type="xs:int" />
+										<xs:element name="nr_telefon" type="xs:string" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="date_autovehicul">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="termen_de_livrare" type="xs:int" />
+										<xs:element name="denumire_model" type="xs:string" />
+										<xs:element name="cod_culoare_exterior" type="xs:int" />
+										<xs:element name="an_fabricatie" type="xs:int" />
+										<xs:element name="nr_km" type="xs:int" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="data_semnarii" type="xs:string" />
+							<xs:element name="suma_de_plata">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="pret_lista_unitar" type="xs:int" />
+										<xs:element name="discount" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute name="denumire" type="xs:string" />
+													</xs:extension>
+												</xs:simpleContent>
+												<xs:sequence>
+													<xs:element name="valoare" type="xs:int" />
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="pret_unitar_de_vanzare" type="xs:int" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="factura">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute serie="denumire" type="xs:string" />
+											<xs:attribute numar="denumire" type="xs:string" />
+											<xs:attribute name="data" type="xs:string" />
+										</xs:extension>
+									</xs:simpleContent>
+									<xs:sequence>
+										<xs:element name="client" type="xs:string" />
+										<xs:element name="adresa_client" type="xs:string" />
+										<xs:element name="denumire_produs" type="xs:string" />
+										<xs:element name="cantitate" type="xs:int" />
+										<xs:element name="total_de_plata" type="xs:int" />
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="Tractiune">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="fata" />
+			<xs:enumeration value="spate" />
+			<xs:enumeration value="integrala" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Combustibil">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="benzina" />
+			<xs:enumeration value="motorina" />
+			<xs:enumeration value="hibrid" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Transmisie">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="manuala" />
+			<xs:enumeration value="automata" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Accesibilitate">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="in_stoc" />
+			<xs:enumeration value="la_comanda" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Status">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="in_depozit" />
+			<xs:enumeration value="in_productie" />
+			<xs:enumeration value="in_asteptare" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="date_client_extinse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="dealer">
+					<xs:sequence>
+						<xs:element name="nume" type="xs:string" />
+						<xs:element name="prenume" type="xs:string" />
+						<xs:element name="adresa">
+							<xs:complexType>
+								<xs:attribute name="strada" type="xs:string" use="required" />
+								<xs:attribute name="numar" type="xs:int" use="required" />
+								<xs:attribute name="oras" type="xs:string" use="required" />
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="cnp" type="xs:string" />
+						<xs:element name="serie_CI" type="xs:string" />
+						<xs:element name="nr_CI" type="xs:int" />
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Vanzarea de masini la un dealer auto</title>
+		<meta charset="UTF-8">
+		<style>
+			body {
+			  font-family: Arial, Helvetica, sans-serif;
+			}
+			.header {
+			  padding: 80px; /* some padding */
+			  text-align: center; /* center the text */
+			  background: #1abc9c; /* green background */
+			  color: white; /* white text color */
+			}
+			/* Increase the font size of the <h1> element */
+			.header h1 {
+			  font-size: 40px;
+			}
+			/* Style the top navigation bar */
+			.navbar {
+			  overflow: hidden; /* Hide overflow */
+			  background-color: #333; /* Dark background color */
+			}
+
+			/* Style the navigation bar links */
+			.navbar button {
+			  background-color: #333;
+			  float: left;
+			  border: none;
+			  outline: none;
+			  cursor: pointer;
+			  padding: 14px 16px;
+			  transition: 0.3s;
+			  font-size: 17px;
+			  color: white;
+			}
+
+			/* Change color on hover/mouse-over */
+			.navbar button:hover {
+			  background-color: #ddd; /* Grey background color */
+			  color: black; /* Black text color */
+			}
+
+			/* Ensure proper sizing */
+			* {
+			  box-sizing: border-box;
+			}
+
+			/* Column container */
+			.row {
+			  display: flex;
+			  flex-wrap: wrap;
+			}
+
+			/* Create two unequal columns that sits next to each other */
+			/* Sidebar/left column */
+			.side {
+			  flex: 50%; /* Set the width of the sidebar */
+			  background-color: #f1f1f1; /* Grey background color */
+			  padding: 20px; /* Some padding */
+			}
+
+			/* Main column */
+			.main {
+			  flex: 50%; /* Set the width of the main content */
+			  background-color: white; /* White background color */
+			  padding: 20px; /* Some padding */
+			}
+
+			#mainB {
+				text-align: center;
+				font-size: 150%;
+			}
+
+			/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+			@media screen and (max-width: 700px) {
+			  .row {   
+			    flex-direction: column;
+			  }
+			}
+
+			/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+			@media screen and (max-width: 400px) {
+			  .navbar a {
+			    float: none;
+			    width:100%;
+			  }
+			}
+
+			.footer {
+			  padding: 20px; /* Some padding */
+			  text-align: center; /* Center text*/
+			  background: #ddd; /* Grey background */
+			}
+
+			/* Container holding the image and the text */
+			.container {
+			  position: relative;
+			  text-align: center;
+			  color: white;
+			  font-size: 150%;
+			}
+			/* Centered text */
+			.centered {
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+			}
+			
+			#myXML, #myJSON {
+				box-sizing: border-box;
+			  border: 2px solid #ccc;
+			  border-radius: 4px;
+			  font-size: 16px;
+			  background-color: white;
+			  background-position: 10px 10px; 
+			  background-repeat: no-repeat;
+			  padding: 12px 20px 12px 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+		  <img class="mySlides" src="1.jpg" style="width:100%">
+		  <img class="mySlides" src="2.jpg" style="width:100%">
+		  <img class="mySlides" src="3.jpg" style="width:100%">
+		  <img class="mySlides" src="4.jpg" style="width:100%">
+		  <img class="mySlides" src="5.jpg" style="width:100%">
+		</div>
+
+		<div class="navbar">
+		  <button onclick="alegereFisierXML()">Incarcare fisier XML</button>
+		  <button onclick="alegereFisierJSON()">Incarcare fisier JSON</button>
+		  <button onclick="parseXML()">Parsare fisier XML</button>
+		  <button onclick="parseJSON()">Parsare fisier JSON</button>
+		  <button onclick="XML()">XML - foi de stil</button>
+		</div>
+
+		<!-- incarcare fisier XML -->
+		<div class="navbar">
+			<form>
+				<label for="myXML" style="color:white" >Fisier XML:</label>
+			  	<input type="file" id="myXML" accept=".xml">
+			</form>
+		</div>
+		
+		<!-- incarcare fisier JSON -->
+		<div class="navbar">
+			<form>
+				<label for="myJSON" style="color:white">Fisier JSON:</label>
+			  	<input type="file" id="myJSON" accept=".json">
+			</form>
+		</div>
+
+		<!--cele doua coloane-->
+		<div class="row">
+		  <div class="side">
+		  	<p id="sideB">
+
+		  	</p>
+		  </div>
+		  <div class="main">
+		  	<p id="mainB">
+
+		  	</p>
+		  </div>
+		</div>
+
+		<div class="footer">
+		  <h2>Orbisor Bianca-Alexandra</h2>
+		  <h4>grupa 343A3</h4>
+		</div>
+
+		<script>
+			var numeFisierXML = "";
+			var numeFisierJSON = "";
+
+			var myIndex = 0;
+			carusel();
+
+			//functie care genereaza trecerea de la o poza la alta
+			function carusel() {
+			  var i;
+			  var x = document.getElementsByClassName("mySlides");
+			  for (i = 0; i < x.length; i++) {
+			    x[i].style.display = "none";
+			  }
+			  myIndex++;
+			  if (myIndex > x.length) {myIndex = 1}
+			  x[myIndex-1].style.display = "block";
+			  setTimeout(carusel, 5000);
+			}
+
+			//incarcarea fisierului XML cu numele filename
+			function loadXMLDoc(filename)
+			{
+				if (window.ActiveXObject) {
+				  	xhttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				else {
+					//se realizeaza o cerere
+					xhttp = new XMLHttpRequest();
+				}
+				xhttp.open("GET", filename, false);
+				try {xhttp.responseType = "msxml-document"} catch(err) {}
+				xhttp.send("");
+				//re returneaza raspunsul asociat cererii
+				return xhttp.responseXML;
+			}
+
+			//incarcarea fisierului XML
+			function alegereFisierXML() {
+				//se stocheaza in var x valoarea din campul myXML
+				var x = document.getElementById("myXML").value;
+				//se returneaza numele fisierului si calea
+				var fileName = x.substring(x.lastIndexOf("\\")+1);
+				//se extrage doar numele fisierului
+				console.log(fileName);
+  				numeFisierXML = fileName;
+			}
+
+			//incarcarea fisierului JSON
+			function alegereFisierJSON() {
+				//se stocheaza in var x valoarea din campul myJSON
+				var x = document.getElementById("myJSON").value;
+				//se returneaza numele fisierului si calea
+				var fileName = x.substring(x.lastIndexOf("\\")+1);
+				console.log(fileName);
+				//se extrage doar numele fisierului
+  				numeFisierJSON = fileName;
+			}
+
+			function parseXML() {
+				document.getElementById("mainB").innerHTML = "";
+				document.getElementById("mainB").style.overflow = "visible";
+
+				var xhttp = new XMLHttpRequest();
+
+				var parser, xmlDoc;
+				var text = "";
+				xhttp.onreadystatechange = function() {
+				    if (this.readyState == 4 && this.status == 200) {
+						parser = new DOMParser();
+
+						xmlDoc = parser.parseFromString(this.responseText,"text/xml");
+
+						var comenzi = xmlDoc.getElementsByTagName('comanda');
+
+						for(var i = 0; i < comenzi.length; i++) {
+							var nrComanda = comenzi[i].getAttribute('numar'); 
+							text = text + "Comanda nr " + nrComanda + "<br>";       
+						    var masina = comenzi[i].getElementsByTagName('masina')[i];
+						    text = text + '\xa0' + "Masina" + "<br>";
+						   	var specificatiiTehnice = comenzi[i].getElementsByTagName('specificatii_tehnice')[0];
+						   	text = text + '\xa0\xa0' + "Specificatii tehnice" + "<br>";
+						   	var marca = comenzi[i].getElementsByTagName('marca')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Marca: " + marca + "<br>";
+						   	
+
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Tip: " + "<br>";
+						   	var denumireComerciala = comenzi[i].getElementsByTagName('denumire_comerciala')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0\xa0\xa0' + "Denumire comerciala: " + denumireComerciala + "<br>";
+						   	var varianta = comenzi[i].getElementsByTagName('varianta')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0\xa0\xa0' + "Varianta: " + varianta + "<br>";
+						   	var versiune = comenzi[i].getElementsByTagName('versiune')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0\xa0\xa0' + "Versiune: " + versiune + "<br>";
+
+
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Date Identificare: " + "<br>";
+						   	var serie_sasiu = comenzi[i].getElementsByTagName('serie_sasiu')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0\xa0\xa0' + "Serie sasiu: " + serie_sasiu + "<br>";
+						   	var serie_motor = comenzi[i].getElementsByTagName('serie_motor')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0\xa0\xa0' + "Serie motor: " + serie_motor + "<br>";
+						   	
+
+						   	var an_fabricatie = comenzi[i].getElementsByTagName('an_fabricatie')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "An fabricatie: " + an_fabricatie + "<br>";
+						   	var capacitate_cilindrica = comenzi[i].getElementsByTagName('capacitate_cilindrica')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Capacitate cilindrica: " + capacitate_cilindrica + "<br>";
+						   	var putere = comenzi[i].getElementsByTagName('putere')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Putere: " + putere + "<br>";
+						   	var tip_combustibil = comenzi[i].getElementsByTagName('tip_combustibil')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Tip combustibil: " + tip_combustibil + "<br>";
+						   	var norma_de_poluare = comenzi[i].getElementsByTagName('norma_de_poluare')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Norma de poluare: " + norma_de_poluare + "<br>";
+						   	var culoare = comenzi[i].getElementsByTagName('culoare')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Culoare: " + culoare + "<br>";
+						   	var viteza_maxima = comenzi[i].getElementsByTagName('viteza_maxima')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Viteza maxima: " + viteza_maxima + "<br>";
+						   	var tractiune = comenzi[i].getElementsByTagName('tractiune')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Tractiune: " + tractiune + "<br>";
+						   	var transmisie = comenzi[i].getElementsByTagName('transmisie')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0\xa0\xa0' + "Transmisie: " + transmisie + "<br>";
+
+
+						   	var dateCumparator = comenzi[i].getElementsByTagName('date_cumparator')[i];
+						    text = text + '\xa0' + "Date cumparator" + "<br>";
+						   	var nume_client = comenzi[i].getElementsByTagName('nume')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0' + "Nume: " + nume_client + "<br>";
+						   	var prenume_client = comenzi[i].getElementsByTagName('prenume')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0\xa0' + "Prenume: " + prenume_client + "<br>";
+						   	var nrTel = comenzi[i].getElementsByTagName('nr_telefon')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Numar de tel.: " + nrTel + "<br>";
+						   	var adresaMail = comenzi[i].getElementsByTagName('adresa_mail')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Adresa mail: " + adresaMail + "<br>";
+						   	var cnp = comenzi[i].getElementsByTagName('cnp')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "CNP: " + cnp + "<br>";
+						   	var serie_CI = comenzi[i].getElementsByTagName('serie_CI')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Serie CI: " + serie_CI + "<br>";
+						   	var nr_CI = comenzi[i].getElementsByTagName('nr_CI')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Nr CI: " + nr_CI + "<br>";
+
+
+						   	var accesibilitate_masina = comenzi[i].getElementsByTagName('accesibilitate_masina')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0' + "Accesibilitate masina: " + accesibilitate_masina + "<br>";
+						   	var statusul_masinii = comenzi[i].getElementsByTagName('statusul_masinii')[0].childNodes[0].nodeValue;
+						   	text = text + '\xa0' + "Statusul masinii: " + statusul_masinii + "<br>";
+
+
+						   	text = text + '\xa0' + "Date autovehicul" + "<br>";
+						   	var termen_de_livrare = comenzi[i].getElementsByTagName('termen_de_livrare')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Termen de livrare (zile): " + termen_de_livrare + "<br>";
+						   	var denumire_model = comenzi[i].getElementsByTagName('denumire_model')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Denumire model: " + denumire_model + "<br>";
+						   	var cod_culoare_exterior = comenzi[i].getElementsByTagName('cod_culoare_exterior')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Cod culoare exterior: " + cod_culoare_exterior + "<br>";
+						   	var an_fabricatie = comenzi[i].getElementsByTagName('an_fabricatie')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "An fabricatie: " + an_fabricatie + "<br>";
+						   	var nr_km = comenzi[i].getElementsByTagName('nr_km')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Nr km: " + nr_km + "<br>";
+
+
+						   	text = text + '\xa0' + "Factura" + "<br>";
+						   	var client = comenzi[i].getElementsByTagName('client')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Client: " + client + "<br>";
+						   	var adresa_client = comenzi[i].getElementsByTagName('adresa_client')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Adresa client: " + adresa_client + "<br>";
+						   	var denumire_produs = comenzi[i].getElementsByTagName('denumire_produs')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Denumire produs: " + denumire_produs + "<br>";
+						   	var cantitate = comenzi[i].getElementsByTagName('cantitate')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Cantitate: " + cantitate + "<br>";
+						   	var total_de_plata = comenzi[i].getElementsByTagName('total_de_plata')[0].childNodes[0].nodeValue;
+						   	text += '\xa0\xa0' + "Total de plata: " + total_de_plata + "<br>";
+
+							text = text + "<br><br>"
+						}
+					}
+					document.getElementById("sideB").innerHTML = text;
+				};
+
+				xhttp.open("GET", numeFisierXML, true);
+				xhttp.send();
+			}
+
+			function parseJSON() {
+				document.getElementById("mainB").innerHTML = "";
+				document.getElementById("mainB").style.overflow = "visible";
+
+				var xmlhttp = new XMLHttpRequest();
+				var text = "";
+				var nrComenzi = 3;
+
+				xmlhttp.onreadystatechange = function() {
+				  if (this.readyState == 4 && this.status == 200) {
+				    myObj = JSON.parse(this.responseText);
+
+				    var nrCom = 0;
+
+				    for(var i in myObj.dealer_auto) {
+				    	
+				    	nrCom++;
+				    	text = text + "Comanda nr " + nrCom + "<br>";
+
+				    	//specificatii tehnice
+				    	text += "<br>" + "Masina " + "<br>";
+				    	text = text + "marca: " + myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.marca + "<br>";
+				    	text = text +  "Denumire comerciala: " + myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.tip.denumire_comerciala + "<br>";
+				    	text = text + "Varianta: " + myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.tip.varianta + "<br>";
+				    	text = text + "Versiune: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.tip.versiune + "<br>";
+				    	text = text + "serie sasiu: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.date_identificare.serie_sasiu + "<br>";
+				    	text = text + "serie motor: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.date_identificare.serie_motor + "<br>";
+				    	text = text + "an fabricatie: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.an_fabricatie + "<br>";
+				    	text = text + "capacitate cilindrica: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.capacitate_cilindrica + "<br>";
+				    	text = text + "putere: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.putere + "<br>";
+				    	text = text + "tip combustibil: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.tip_combustibil + "<br>";
+				    	text = text + "norma de poluare: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.norma_de_poluare + "<br>";
+				    	text = text + "culoare: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.culoare + "<br>";
+				    	text = text + "viteza maxima: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.viteza_maxima + "<br>";
+				    	text = text + "tractiune: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.tractiune + "<br>";
+				    	text = text + "transmisie: " +  myObj.dealer_auto[i].comanda[0].masina.specificatii_tehnice.transmisie + "<br>";
+
+				    	//date cumparator
+				    	text += "<br>" + "Date cumparator " + "<br>";
+				    	text = text + "nume: " + myObj.dealer_auto[i].comanda[0].date_cumparator.nume + "<br>";
+				    	text = text + "prenume: " + myObj.dealer_auto[i].comanda[0].date_cumparator.prenume + "<br>";
+				    	text = text + "Adresa: ";
+				    	text = text + myObj.dealer_auto[i].comanda[0].date_cumparator.adresa.strada +" " + myObj.dealer_auto[i].comanda[0].date_cumparator.adresa.numar + " " + myObj.dealer_auto[i].comanda[0].date_cumparator.adresa.oras +"<br>";
+				    	text = text + "nr telefon: " + myObj.dealer_auto[i].comanda[0].date_cumparator.nr_telefon + "<br>";
+				    	text = text + "adresa mail: " + myObj.dealer_auto[i].comanda[0].date_cumparator.adresa_mail + "<br>";
+				    	text = text + "cnp: " + myObj.dealer_auto[i].comanda[0].date_cumparator.cnp + "<br>";
+				    	text = text + "serie CI: " + myObj.dealer_auto[i].comanda[0].date_cumparator.serie_CI + "<br>";
+				    	text = text + "nr CI: " + myObj.dealer_auto[i].comanda[0].date_cumparator.nr_CI + "<br>";
+
+				    	//date dealer
+				    	text += "<br>" + "Date dealer " + "<br>";
+				    	text += "nume: " + myObj.dealer_auto[i].comanda[0].dealer.nume + "<br>";
+				    	text += "prenume: " + myObj.dealer_auto[i].comanda[0].dealer.prenume + "<br>";
+				    	text += "nr telefon: " + myObj.dealer_auto[i].comanda[0].dealer.nr_telefon + "<br>";
+				    	text += "adresa mail: " + myObj.dealer_auto[i].comanda[0].dealer.adresa_mail + "<br>";
+
+				    	text += "accesibilitate masina: " + myObj.dealer_auto[i].comanda[0].accesibilitate_masina + "<br>";
+				    	text += "statusul masinii: " + myObj.dealer_auto[i].comanda[0].statusul_masinii + "<br>";
+
+				    	//date vanzator
+				    	text += "<br>" + "Date vanzator " + "<br>";
+				    	text += "denumire: " + myObj.dealer_auto[i].comanda[0].date_vanzator.denumire + "<br>";
+				    	text += "localitate: " + myObj.dealer_auto[i].comanda[0].date_vanzator.localitate + "<br>";
+				    	text += "consilier de vanzari: " + myObj.dealer_auto[i].comanda[0].date_vanzator.consilier_de_vanzari + "<br>";
+				    	text += "judet sector: " + myObj.dealer_auto[i].comanda[0].date_vanzator.judet_sector + "<br>";
+				    	text += "nr telefon: " + myObj.dealer_auto[i].comanda[0].date_vanzator.nr_telefon + "<br>";
+
+				    	//date autovehicul
+				    	text += "<br>" + "Date autovehicul " + "<br>";
+				    	text += "termen de livrare: " + myObj.dealer_auto[i].comanda[0].date_autovehicul.termen_de_livrare + "<br>";
+				    	text += "denumire model: " + myObj.dealer_auto[i].comanda[0].date_autovehicul.denumire_model + "<br>";
+				    	text += "cod culoare exterior: " + myObj.dealer_auto[i].comanda[0].date_autovehicul.cod_culoare_exterior + "<br>";
+				    	text += "an fabricatie: " + myObj.dealer_auto[i].comanda[0].date_autovehicul.an_fabricatie + "<br>";
+				    	text += "nr km: " + myObj.dealer_auto[i].comanda[0].date_autovehicul.nr_km + "<br>";
+
+				    	text += ": " + myObj.dealer_auto[i].comanda[0].data_semnarii + "<br>";
+
+				    	//suma de plata
+				    	text += "<br>" + "Suma de plata " + "<br>";
+				    	text += "pret lista unitar: " + myObj.dealer_auto[i].comanda[0].suma_de_plata.pret_lista_unitar + "<br>";
+				    	//se pot aplica 0 sau mai multe discount-uri
+				    	for(var j in myObj.dealer_auto[i].comanda[0].suma_de_plata.discount) {
+				    		text += "denumire discount: " + myObj.dealer_auto[i].comanda[0].suma_de_plata.discount[j].denumire + "<br>";
+				    		text += "valoare discount: " + myObj.dealer_auto[i].comanda[0].suma_de_plata.discount[j].valoare + "<br>";
+				    	}
+				    	text += "pret unitar de vanzare: " + myObj.dealer_auto[i].comanda[0].suma_de_plata.pret_unitar_de_vanzare + "<br>";
+
+				    	//date factura
+				    	text += "<br>" + "Date factura " + "<br>";
+				    	text += "serie: " + myObj.dealer_auto[i].comanda[0].factura.serie + "<br>";
+				    	text += "numar: " + myObj.dealer_auto[i].comanda[0].factura.numar + "<br>";
+				    	text += "data: " + myObj.dealer_auto[i].comanda[0].factura.data + "<br>";
+				    	text += "client: " + myObj.dealer_auto[i].comanda[0].factura.client + "<br>";
+				    	text += "adresa client: " + myObj.dealer_auto[i].comanda[0].factura.adresa_client + "<br>";
+				    	text += "denumire produs: " + myObj.dealer_auto[i].comanda[0].factura.denumire_produs + "<br>";
+				    	text += "cantitate: " + myObj.dealer_auto[i].comanda[0].factura.cantitate + "<br>";
+				    	text += "total de plata: " + myObj.dealer_auto[i].comanda[0].factura.total_de_plata + "<br>";
+
+				    	text = text + "<br><br><br><br>";
+				    }
+				    document.getElementById("mainB").innerHTML = text;
+				  }
+				};
+				xmlhttp.open("GET", numeFisierJSON, true);
+				xmlhttp.send();
+			}
+
+			//aplicarea unei foi de stil la apasarea unui buton
+			function XML() {
+				//se incarca fisierul XML
+				xml = loadXMLDoc(numeFisierXML);
+				//se incarca fisierul XSL
+				xsl = loadXMLDoc("DealerAutoOrbisorBiancaAlexandra.xsl");
+				// code for IE
+				if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+					ex = xml.transformNode(xsl);
+					document.getElementById("mainB").innerHTML = ex;
+				}
+				// code for Chrome, Firefox, Opera, etc.
+				else if (document.implementation && document.implementation.createDocument) {
+					xsltProcessor = new XSLTProcessor();
+					//import fisierul XSL
+					xsltProcessor.importStylesheet(xsl);
+					resultDocument = xsltProcessor.transformToFragment(xml, document);
+
+					document.getElementById("mainB").innerHTML = "";
+					document.getElementById("sideB").innerHTML = "";
+					document.getElementById("mainB").style.overflow = "scroll";
+					//afisare rezultat
+					document.getElementById("mainB").appendChild(resultDocument);
+
+				}
+			}
+		</script>
+	</body>
+</html>

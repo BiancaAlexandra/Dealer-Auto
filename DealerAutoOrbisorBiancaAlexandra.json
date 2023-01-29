@@ -1,0 +1,293 @@
+{
+	"dealer_auto" : [
+		{
+			"comanda" : [
+				{
+					"masina" : 
+						{
+							"specificatii_tehnice" : 
+								{
+									"marca" : "Toyota",
+									"tip" : 
+										{
+											"denumire_comerciala" : "Yaris",
+											"varianta" : "NBP21(MH)",
+											"versiune" : "NBP211L-CHFNBW(1R)"
+										},
+									"date_identificare" : 
+										{
+											"serie_sasiu" : "ABCDE4G111B123456",
+											"serie_motor" : "2NR-FKE"
+										},
+									"an_fabricatie" : "2019",
+									"capacitate_cilindrica" : "1496",
+									"putere" : "82",
+									"tip_combustibil" : "benzina",
+									"norma_de_poluare" : "6",
+									"culoare" : "alb",
+									"viteza_maxima" : "175",
+									"tractiune" : "fata",
+									"transmisie" : "manuala"
+								}
+						},
+					"date_cumparator" : 
+						{
+							"nume" : "Ion",
+							"prenume" : "Maria",	
+							"adresa" : 
+								{
+									"strada" : "Unirii",
+									"numar" : "7",
+									"oras" : "Bucuresti"
+								},
+							"nr_telefon" : "0758954823",
+							"adresa_mail" : "ion.maria@yahoo.com",
+							"cnp" : "2970221475584",
+							"serie_CI" : "RR",
+							"nr_CI" : "444444"
+						},
+					"dealer" : 
+						{
+							"nume" : "Ionescu",
+							"prenume" : "Ion",
+							"nr_telefon" : "0748775566",
+							"adresa_mail" : "ionescu.ion@gmail.com"
+						},
+					"accesibilitate_masina" : "stoc",
+					"statusul_masinii" : "asteptare",
+					"date_vanzator" : 
+						{
+							"denumire" : "Toyo Motor Centre",
+							"localitate" : "Bucuresti",
+							"consilier_de_vanzari" : "Ion Ionescu",
+							"judet_sector" : "3",
+							"nr_telefon" : "0788885513"
+						},
+					"date_autovehicul" : 
+						{
+							"termen_de_livrare" : "20",
+							"denumire_model" : "Yaris",
+							"cod_culoare_exterior" : "040",
+							"an_fabricatie" : "2019",
+							"nr_km" : "0"
+						},
+					"data_semnarii" : "13.12.2019",
+					"suma_de_plata" :
+						{
+							"pret_lista_unitar" : "15714",
+							"discount" : [
+								{
+									"denumire" : "promotie",
+									"valoare" : "2314"
+								},
+								{
+									"denumire" : "reducere",
+									"valoare" : "400"
+								}
+							],
+							"pret_unitar_de_vanzare" : "13000"
+						},
+					"factura" : 
+						{
+							"serie" : "ABC21",
+							"numar" : "212",
+							"data" : "10.01.2020",
+							"client" : "Ion Maria",
+							"adresa_client" : "Dristor",
+							"denumire_produs" : "Yaris",
+							"cantitate" : "1",
+							"total_de_plata" : "13000"
+						}
+				}
+			]
+		},
+		{
+			"comanda" : [
+				{
+					"masina" : 
+						{
+							"specificatii_tehnice" : 
+								{
+									"marca" : "Toyota",
+									"tip" : 
+										{
+											"denumire_comerciala" : "Corolla",
+											"varianta" : "NBP20(MH)",
+											"versiune" : "NBP201L-CHFNBW(1R)"
+										},
+									"date_identificare" : 
+										{
+											"serie_sasiu" : "ABCDE4G111B123455",
+											"serie_motor" : "8NR-FTS"
+										},
+									"an_fabricatie" : "2017",
+									"capacitate_cilindrica" : "1197",
+									"putere" : "85",
+									"tip_combustibil" : "benzina",
+									"norma_de_poluare" : "6",
+									"culoare" : "albastru",
+									"viteza_maxima" : "195",
+									"tractiune" : "fata",
+									"transmisie" : "automata"
+								}
+						},
+					"date_cumparator" : 
+						{
+							"nume" : "Ghita",
+							"prenume" : "Mihai",	
+							"adresa" : 
+								{
+									"strada" : "Militari",
+									"numar" : "3",
+									"oras" : "Bucuresti"
+								},
+							"nr_telefon" : "0725658545",
+							"adresa_mail" : "ghita.mihai@yahoo.com",
+							"cnp" : "1970221471111",
+							"serie_CI" : "RA",
+							"nr_CI" : "111111"
+						},
+					"dealer" : 
+						{
+							"nume" : "Oncescu",
+							"prenume" : "Laurentiu",
+							"nr_telefon" : "0744115787",
+							"adresa_mail" : "oncescu.laurentiu@gmail.com"
+						},
+					"accesibilitate_masina" : "stoc",
+					"statusul_masinii" : "asteptare",
+					"date_vanzator" : 
+						{
+							"denumire" : "Toyo Motor Centre",
+							"localitate" : "Bucuresti",
+							"consilier_de_vanzari" : "Laurentiu Oncescu",
+							"judet_sector" : "3",
+							"nr_telefon" : "0788885513"
+						},
+					"date_autovehicul" : 
+						{
+							"termen_de_livrare" : "30",
+							"denumire_model" : "Corolla",
+							"cod_culoare_exterior" : "059",
+							"an_fabricatie" : "2017",
+							"nr_km" : "75000"
+						},
+					"data_semnarii" : "21.02.2020",
+					"suma_de_plata" :
+						{
+							"pret_lista_unitar" : "16500",
+							"pret_unitar_de_vanzare" : "16500"
+						},
+					"factura" : 
+						{
+							"serie" : "ABC22",
+							"numar" : "221",
+							"data" : "21.02.2020",
+							"client" : "Ghita Mihai",
+							"adresa_client" : "Berceni",
+							"denumire_produs" : "Corolla",
+							"cantitate" : "1",
+							"total_de_plata" : "16500"
+						}
+				}
+			]
+		},
+		{
+			"comanda" : [
+				{
+					"masina" : 
+						{
+							"specificatii_tehnice" : 
+								{
+									"marca" : "Toyota",
+									"tip" : 
+										{
+											"denumire_comerciala" : "Aygo",
+											"varianta" : "NAA21(MH)",
+											"versiune" : "NAA211L-CHFNBW(1R)"
+										},
+									"date_identificare" : 
+										{
+											"serie_sasiu" : "ABCDE4G111B123401",
+											"serie_motor" : "1KR-FE"
+										},
+									"an_fabricatie" : "2020",
+									"capacitate_cilindrica" : "998",
+									"putere" : "72",
+									"tip_combustibil" : "benzina",
+									"norma_de_poluare" : "6",
+									"culoare" : "negru",
+									"viteza_maxima" : "160",
+									"tractiune" : "fata",
+									"transmisie" : "manuala"
+								}
+						},
+					"date_cumparator" : 
+						{
+							"nume" : "Marcelescu",
+							"prenume" : "Marcel",	
+							"adresa" : 
+								{
+									"strada" : "Unirii",
+									"numar" : "13",
+									"oras" : "Bucuresti"
+								},
+							"nr_telefon" : "0758621458",
+							"adresa_mail" : "marcelescu.marcel@yahoo.com",
+							"cnp" : "1970221472525",
+							"serie_CI" : "RB",
+							"nr_CI" : "999888"
+						},
+					"dealer" : 
+						{
+							"nume" : "Ionescu",
+							"prenume" : "Ion",
+							"nr_telefon" : "0748775566",
+							"adresa_mail" : "ionescu.ion@gmail.com"
+						},
+					"accesibilitate_masina" : "comanda",
+					"statusul_masinii" : "productie",
+					"date_vanzator" : 
+						{
+							"denumire" : "Toyo Motor Centre",
+							"localitate" : "Bucuresti",
+							"consilier_de_vanzari" : "Ionescu Ion",
+							"judet_sector" : "3",
+							"nr_telefon" : "0788885513"
+						},
+					"date_autovehicul" : 
+						{
+							"termen_de_livrare" : "35",
+							"denumire_model" : "Aygo",
+							"cod_culoare_exterior" : "080",
+							"an_fabricatie" : "2020",
+							"nr_km" : "0"
+						},
+					"data_semnarii" : "21.05.2020",
+					"suma_de_plata" :
+						{
+							"pret_lista_unitar" : "9637",
+							"discount" : [
+								{
+									"denumire" : "promotie",
+									"valoare" : "637"
+								}
+							],
+							"pret_unitar_de_vanzare" : "9000"
+						},
+					"factura" : 
+						{
+							"serie" : "AAA21",
+							"numar" : "221",
+							"data" : "10.05.2020",
+							"client" : "Marcelescu Marcel",
+							"adresa_client" : "Pipera",
+							"denumire_produs" : "Aygo",
+							"cantitate" : "1",
+							"total_de_plata" : "9000"
+						}
+				}
+			]
+		}
+	]
+}

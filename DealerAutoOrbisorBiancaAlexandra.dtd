@@ -1,0 +1,77 @@
+<!ELEMENT dealer_auto (comanda*)>
+
+<!ELEMENT comanda (masina+, date_cumparator, dealer, accesibilitate_masina, statusul_masinii?, date_vanzator, date_autovehicul, data_semnarii, suma_de_plata, factura)>
+<!ELEMENT accesibilitate_masina (#PCDATA)>
+<!ELEMENT statusul_masinii (#PCDATA)>
+<!ELEMENT data_semnarii (#PCDATA)>
+
+<!ELEMENT masina (specificatii_tehnice)>
+
+<!ELEMENT specificatii_tehnice (marca, tip, date_identificare, an_fabricatie, capacitate_cilindrica, putere, tip_combustibil, norma_de_poluare, culoare, viteza_maxima, tractiune, transmisie)>
+<!ELEMENT marca (#PCDATA)>
+<!ELEMENT an_fabricatie (#PCDATA)>
+<!ELEMENT capacitate_cilindrica (#PCDATA)>
+<!ELEMENT putere (#PCDATA)>
+<!ELEMENT tip_combustibil (#PCDATA)>
+<!ELEMENT norma_de_poluare (#PCDATA)>
+<!ELEMENT culoare (#PCDATA)>
+<!ELEMENT viteza_maxima (#PCDATA)>
+<!ELEMENT tractiune (#PCDATA)>
+<!ELEMENT transmisie (#PCDATA)>
+
+<!ELEMENT tip (denumire_comerciala, varianta, versiune)>
+<!ELEMENT denumire_comerciala (#PCDATA)>
+<!ELEMENT varianta (#PCDATA)>
+<!ELEMENT versiune (#PCDATA)>
+
+<!ELEMENT date_identificare (serie_sasiu, serie_motor)>
+<!ELEMENT serie_sasiu (#PCDATA)>
+<!ELEMENT serie_motor (#PCDATA)>
+
+<!ELEMENT date_cumparator (nume, prenume, adresa, nr_telefon, adresa_mail, cnp, serie_CI, nr_CI)>
+<!ELEMENT nume (#PCDATA)>
+<!ELEMENT prenume (#PCDATA)>
+<!ELEMENT adresa (#PCDATA)>
+<!ELEMENT nr_telefon (#PCDATA)>
+<!ELEMENT adresa_mail (#PCDATA)>
+<!ELEMENT cnp (#PCDATA)>
+<!ELEMENT serie_CI (#PCDATA)>
+<!ELEMENT nr_CI (#PCDATA)>
+
+<!ELEMENT dealer (nr_telefon+, adresa_mail)>
+
+<!ELEMENT date_vanzator (localitate, consilier_de_vanzari, judet_sector, nr_telefon)>
+<!ELEMENT localitate (#PCDATA)>
+<!ELEMENT consilier_de_vanzari (#PCDATA)>
+<!ELEMENT judet_sector (#PCDATA)>
+
+<!ELEMENT date_autovehicul (termen_de_livrare, denumire_model, cod_culoare_exterior, an_fabricatie, nr_km)>
+<!ELEMENT termen_de_livrare (#PCDATA)>
+<!ELEMENT denumire_model (#PCDATA)>
+<!ELEMENT cod_culoare_exterior (#PCDATA)>
+<!ELEMENT nr_km (#PCDATA)>
+
+<!ELEMENT suma_de_plata (pret_lista_unitar, discount*, pret_unitar_de_vanzare)>
+<!ELEMENT pret_lista_unitar (#PCDATA)>
+<!ELEMENT pret_unitar_de_vanzare (#PCDATA)>
+<!ELEMENT discount (valoare)>
+<!ELEMENT valoare (#PCDATA)>
+
+<!ELEMENT factura (client, adresa_client, denumire_produs, cantitate, total_de_plata)>
+<!ELEMENT client (#PCDATA)>
+<!ELEMENT adresa_client (#PCDATA)>
+<!ELEMENT denumire_produs (#PCDATA)>
+<!ELEMENT cantitate (#PCDATA)>
+<!ELEMENT total_de_plata (#PCDATA)>
+
+<!ATTLIST comanda numar CDATA #REQUIRED>
+<!ATTLIST adresa strada CDATA #REQUIRED>
+<!ATTLIST adresa numar CDATA #REQUIRED>
+<!ATTLIST adresa oras CDATA #REQUIRED>
+<!ATTLIST dealer nume CDATA #REQUIRED>
+<!ATTLIST dealer prenume CDATA #REQUIRED>
+<!ATTLIST date_vanzator denumire CDATA #REQUIRED>
+<!ATTLIST discount denumire CDATA #REQUIRED>
+<!ATTLIST factura serie CDATA #REQUIRED>
+<!ATTLIST factura numar CDATA #REQUIRED>
+<!ATTLIST factura data CDATA #REQUIRED>
